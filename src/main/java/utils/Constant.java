@@ -1,4 +1,4 @@
-package generator.domain.utils;
+package utils;
 
 /**
  * 常量类
