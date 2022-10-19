@@ -1,4 +1,4 @@
-package generator.domain;
+package com.library.librarymanagementsystem.domain;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;

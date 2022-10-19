@@ -1,4 +1,4 @@
-package utils;
+package com.library.librarymanagementsystem.utils;
 
 /**
  * 常量类
@@ -23,4 +23,7 @@ public class Constant {
      */
     public static final String BORROW_STATUS_0 = "0";
     public static final String BORROW_STATUS_1 = "1";
+
+    public static final String ADMIN_TOKEN = "admin-token";
+    public static final String USER_TOKEN = "user-token";
 }

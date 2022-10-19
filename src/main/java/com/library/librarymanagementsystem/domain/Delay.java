@@ -1,4 +1,4 @@
-package generator.domain;
+package com.library.librarymanagementsystem.domain;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

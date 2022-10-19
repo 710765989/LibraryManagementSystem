@@ -1,9 +1,11 @@
 server:
   port: 8080
+  servlet:
+    context-path: /library
 
 spring:
   datasource:
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://192.168.135.133:3306/library?characterEncoding=utf-8
     username: root
     password: 123
