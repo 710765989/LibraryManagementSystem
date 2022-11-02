@@ -1,6 +1,6 @@
 package com.library.librarymanagementsystem.utils;
 
-import com.library.librarymanagementsystem.domain.User;
+import com.library.librarymanagementsystem.entity.User;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;

@@ -1,7 +1,7 @@
 package com.library.librarymanagementsystem.base.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.library.librarymanagementsystem.domain.User;
+import com.library.librarymanagementsystem.entity.User;
 import org.apache.ibatis.annotations.Select;
 
 public interface UserMapper extends BaseMapper<User> {

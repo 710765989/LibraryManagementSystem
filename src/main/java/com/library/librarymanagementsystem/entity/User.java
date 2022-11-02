@@ -1,4 +1,4 @@
-package com.library.librarymanagementsystem.domain;
+package com.library.librarymanagementsystem.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;

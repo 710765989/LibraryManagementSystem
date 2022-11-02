@@ -1,10 +1,9 @@
 package com.library.librarymanagementsystem.controller;
 
 import com.library.librarymanagementsystem.base.service.impl.UserServiceImpl;
-import com.library.librarymanagementsystem.domain.User;
+import com.library.librarymanagementsystem.entity.User;
 import com.library.librarymanagementsystem.utils.R;
 import com.library.librarymanagementsystem.utils.ShiroUtils;
-import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,10 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
 
-import static com.library.librarymanagementsystem.utils.Constant.*;
-
 @RestController
-public class Login {
+public class LoginController {
     @Autowired
     private UserServiceImpl userService;
 
