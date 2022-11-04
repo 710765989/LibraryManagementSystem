@@ -25,7 +25,7 @@ public class BookVO {
     /**
      * 借阅状态·文本
      */
-    private String value;
+    private String statusValue;
 
     /**
      * 作者
