@@ -3,6 +3,7 @@ package com.library.librarymanagementsystem.entity;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.validator.constraints.Length;
@@ -13,6 +14,7 @@ import org.hibernate.validator.constraints.Length;
 */
 @EqualsAndHashCode(callSuper = true)
 @Data
+@TableName("book")
 public class Book extends BaseEntity {
     /**
     * 书名
@@ -45,4 +47,12 @@ public class Book extends BaseEntity {
     @Size(max= 1,message="图书类型长度不能超过1")
     @Length(max= 1,message="图书类型长度不能超过1")
     private String type;
+
+    /**
+     * 删除标识
+     */
+    //@NotBlank(message="[删除标识]不能为空")
+    @Size(max= 1,message="删除标识不能超过1")
+    @Length(max= 1,message="删除标识不能超过1")
+    private String delFlag;
 }

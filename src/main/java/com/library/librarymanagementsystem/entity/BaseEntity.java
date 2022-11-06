@@ -1,25 +1,32 @@
 package com.library.librarymanagementsystem.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Data
 public class BaseEntity implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     /**
      * id
      */
-    //@NotNull(message="[id]不能为空")
+    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     /**
      * 创建时间
      */
-    //@NotNull(message="[创建时间]不能为空")
-    private Date createTime;
+    @TableField(fill = FieldFill.INSERT)
+    private LocalDateTime createTime;
     /**
      * 更新时间
      */
-    private Date updateTime;
+    @TableField(fill = FieldFill.UPDATE)
+    private LocalDateTime updateTime;
 }

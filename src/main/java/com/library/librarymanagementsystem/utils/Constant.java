@@ -26,4 +26,7 @@ public class Constant {
 
     public static final String ADMIN_TOKEN = "admin-token";
     public static final String USER_TOKEN = "user-token";
+
+    public static final String NO = "0";
+    public static final String YES = "1";
 }

@@ -1,10 +1,7 @@
 package com.library.librarymanagementsystem.VO;
 
-import com.library.librarymanagementsystem.entity.Book;
 import com.library.librarymanagementsystem.entity.Borrow;
-import com.library.librarymanagementsystem.enums.BookStatus;
 import lombok.Data;
-import org.springframework.beans.BeanUtils;
 
 /**
  * bookVO
@@ -20,12 +17,11 @@ public class BookVO {
     /**
      * 借阅状态
      */
-    //private BookStatus status;
     private String status;
     /**
      * 借阅状态·文本
      */
-    private String statusValue;
+    private String statusText;
 
     /**
      * 作者
@@ -41,4 +37,14 @@ public class BookVO {
      * 类型
      */
     private String type;
+
+    /**
+     * 类型·文本
+     */
+    private String typeText;
+
+    /**
+     * 删除标识
+     */
+    private String delFlag;
 }
