@@ -1,6 +1,5 @@
 package com.library.librarymanagementsystem.controller;
 
-import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.library.librarymanagementsystem.VO.BookVO;
 import com.library.librarymanagementsystem.base.service.impl.BookServiceImpl;
 import com.library.librarymanagementsystem.entity.Book;
