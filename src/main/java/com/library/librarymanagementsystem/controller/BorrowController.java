@@ -1,5 +1,6 @@
 package com.library.librarymanagementsystem.controller;
 
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.library.librarymanagementsystem.VO.BookVO;
 import com.library.librarymanagementsystem.VO.BorrowVO;
@@ -72,14 +73,34 @@ public class BorrowController {
     @PostMapping("save")
     public R edit(@RequestBody @Valid Borrow borrow) {
         User admin = userService.getByUsername("admin");
+        borrow.setId(null);
         borrow.setUserId(admin.getId());
         borrow.setStatus(Constant.BORROW_STATUS_1);
-        borrowService.saveOrUpdate(borrow);
+        borrowService.save(borrow);
 
         Book book = bookService.getById(borrow.getBookId());
         book.setBorrowId(borrow.getId());
         book.setStatus(Constant.BOOK_STATUS_1);
         bookService.updateById(book);
         return R.ok();
+    }
+
+    @Transactional
+    @PostMapping("return/{id}")
+    public R returnBook(@PathVariable String id) {
+        if (StringUtils.isBlank(id)) return R.error("借阅id不存在");
+        Borrow borrow = borrowService.getById(id);
+        if (borrow != null) {
+            borrow.setRealReturnTime(LocalDateTime.now());
+            borrow.setStatus(Constant.BORROW_STATUS_0);
+            borrowService.updateById(borrow);
+
+            Book book = bookService.getById(borrow.getBookId());
+            book.setBorrowId(0);
+            book.setStatus(Constant.BOOK_STATUS_0);
+            bookService.updateById(book);
+            return R.ok();
+        }
+        return R.error("借阅id不存在");
     }
 }
