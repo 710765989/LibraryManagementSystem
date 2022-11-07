@@ -72,6 +72,9 @@ public class BorrowController {
     @Transactional
     @PostMapping("save")
     public R edit(@RequestBody @Valid Borrow borrow) {
+        if (LocalDateTime.now().plusMonths(3).isBefore(borrow.getReturnTime())) {
+            return R.error("借阅时长能超过3个月");
+        }
         User admin = userService.getByUsername("admin");
         borrow.setId(null);
         borrow.setUserId(admin.getId());
@@ -85,6 +88,9 @@ public class BorrowController {
         return R.ok();
     }
 
+    /**
+     * 归还图书
+     */
     @Transactional
     @PostMapping("return/{id}")
     public R returnBook(@PathVariable String id) {

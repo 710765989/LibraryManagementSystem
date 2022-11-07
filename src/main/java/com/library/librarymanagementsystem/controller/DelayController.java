@@ -1,5 +1,6 @@
 package com.library.librarymanagementsystem.controller;
 
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.library.librarymanagementsystem.VO.BorrowVO;
 import com.library.librarymanagementsystem.VO.DelayVO;
 import com.library.librarymanagementsystem.base.service.impl.BookServiceImpl;
@@ -10,13 +11,13 @@ import com.library.librarymanagementsystem.entity.Book;
 import com.library.librarymanagementsystem.entity.Borrow;
 import com.library.librarymanagementsystem.entity.Delay;
 import com.library.librarymanagementsystem.entity.User;
+import com.library.librarymanagementsystem.utils.Constant;
 import com.library.librarymanagementsystem.utils.LocalCache;
 import com.library.librarymanagementsystem.utils.R;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -33,8 +34,6 @@ public class DelayController {
     private BorrowServiceImpl borrowService;
     @Autowired
     private UserServiceImpl userService;
-    @Autowired
-    private LocalCache localCache;
 
     /**
      * 延期记录
@@ -64,5 +63,22 @@ public class DelayController {
             res.add(vo);
         }
         return R.ok().put("data", res);
+    }
+
+    /**
+     * 借阅延期
+     */
+    @Transactional
+    @PostMapping("delay/{id}")
+    public R delay(@PathVariable String id) {
+        if (StringUtils.isBlank(id)) return R.error("借阅id不存在");
+        Borrow borrow = borrowService.getById(id);
+        Delay delay = new Delay();
+        User admin = userService.getByUsername("admin");
+        delay.setUserId(admin.getId());
+        delay.setBookId(borrow.getBookId());
+        delay.setBorrowId(borrow.getId());
+        delay.setTime(Constant.DELAY_DAYS);
+        return R.ok();
     }
 }
