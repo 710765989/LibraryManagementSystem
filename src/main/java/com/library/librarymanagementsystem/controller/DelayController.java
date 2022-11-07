@@ -79,6 +79,7 @@ public class DelayController {
         delay.setBookId(borrow.getBookId());
         delay.setBorrowId(borrow.getId());
         delay.setTime(Constant.DELAY_DAYS);
+        delayService.updateById(delay);
         return R.ok();
     }
 }
