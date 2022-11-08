@@ -9,6 +9,7 @@ import com.library.librarymanagementsystem.entity.User;
 import com.library.librarymanagementsystem.utils.ShiroUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.security.NoSuchAlgorithmException;
@@ -24,6 +25,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         return this.baseMapper.getByUsername(username);
     }
 
+    @Transactional
     @Override
     public void updatePwd(UserUpdatePwdDto pwdDto) {
         User user = ShiroUtils.getCurrentUser();
