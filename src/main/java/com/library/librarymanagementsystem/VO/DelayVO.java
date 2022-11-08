@@ -38,5 +38,5 @@ public class DelayVO {
     /**
     * 延期天数
     */
-    private String time;
+    private Integer time;
 }

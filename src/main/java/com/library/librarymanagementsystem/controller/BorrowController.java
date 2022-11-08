@@ -6,9 +6,11 @@ import com.library.librarymanagementsystem.VO.BookVO;
 import com.library.librarymanagementsystem.VO.BorrowVO;
 import com.library.librarymanagementsystem.base.service.impl.BookServiceImpl;
 import com.library.librarymanagementsystem.base.service.impl.BorrowServiceImpl;
+import com.library.librarymanagementsystem.base.service.impl.DelayServiceImpl;
 import com.library.librarymanagementsystem.base.service.impl.UserServiceImpl;
 import com.library.librarymanagementsystem.entity.Book;
 import com.library.librarymanagementsystem.entity.Borrow;
+import com.library.librarymanagementsystem.entity.Delay;
 import com.library.librarymanagementsystem.entity.User;
 import com.library.librarymanagementsystem.utils.Constant;
 import com.library.librarymanagementsystem.utils.DicConstant;
@@ -36,6 +38,8 @@ public class BorrowController {
     @Autowired
     private UserServiceImpl userService;
     @Autowired
+    private DelayServiceImpl delayService;
+    @Autowired
     private LocalCache localCache;
 
     @GetMapping("list")
@@ -59,6 +63,10 @@ public class BorrowController {
             Book book = bookService.getById(borrow.getBookId());
             vo.setBookId(book.getId());
             vo.setBookName(book.getName());
+
+            // 是否已续借
+            Delay delay = delayService.getDelayByBorrowId(borrow.getId());
+            vo.setDelayFlag(delay == null ? Constant.NO : Constant.YES);
             res.add(vo);
         }
         return R.ok().put("data", res);
