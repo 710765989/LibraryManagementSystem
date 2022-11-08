@@ -34,7 +34,7 @@ public class Delay extends BaseEntity {
     * 延期天数
     */
     @NotBlank(message="[延期天数]不能为空")
-    @Size(max= 50,message="延期天数长度不能超过50")
-    @Length(max= 50,message="延期天数长度不能超过50")
-    private String time;
+    //@Size(max= 50,message="延期天数长度不能超过50")
+    //@Length(max= 50,message="延期天数长度不能超过50")
+    private Integer time;
 }

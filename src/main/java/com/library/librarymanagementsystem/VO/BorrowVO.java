@@ -35,4 +35,8 @@ public class BorrowVO {
      * 实际归还时间
      */
     private String realReturnTime;
+    /**
+     * 是否延期
+     */
+    private String delayFlag;
 }

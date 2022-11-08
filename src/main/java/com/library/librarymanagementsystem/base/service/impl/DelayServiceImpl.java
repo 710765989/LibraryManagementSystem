@@ -8,4 +8,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class DelayServiceImpl extends ServiceImpl<DelayMapper, Delay> implements DelayService {
+
+    @Override
+    public Delay getDelayByBorrowId(Integer borrowId) {
+        return this.baseMapper.getDelayByBorrowId(borrowId);
+    }
 }
