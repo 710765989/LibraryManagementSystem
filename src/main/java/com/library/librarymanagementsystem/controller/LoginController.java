@@ -31,7 +31,8 @@ public class LoginController {
         String password = user.getPassword();
         try {
             String md5 = getMD5(password);
-            if (!md5.equals(userByUsername.getPassword())) {
+            //if (!md5.equals(userByUsername.getPassword())) {
+            if (!password.equals(userByUsername.getPassword())) {
                 return R.error("密码错误！");
             }
         } catch (NoSuchAlgorithmException e) {

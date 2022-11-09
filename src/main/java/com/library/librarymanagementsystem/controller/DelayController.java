@@ -68,7 +68,7 @@ public class DelayController {
      * 借阅延期
      */
     @Transactional
-    @PostMapping("delay/{id}")
+    @PostMapping("{id}")
     public R delay(@PathVariable String id) {
         if (StringUtils.isBlank(id)) return R.error("借阅id不存在");
         Borrow borrow = borrowService.getById(id);
