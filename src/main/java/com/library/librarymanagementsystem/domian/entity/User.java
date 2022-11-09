@@ -37,4 +37,12 @@ public class User extends BaseEntity {
     @Size(max= 1,message="编码长度不能超过1")
     @Length(max= 1,message="编码长度不能超过1")
     private String type;
+
+    /**
+     * 逻辑删除标识
+     */
+    //@NotBlank(message="[删除标识]不能为空")
+    @Size(max= 1,message="删除标识不能超过1")
+    @Length(max= 1,message="删除标识不能超过1")
+    private String delFlag;
 }
