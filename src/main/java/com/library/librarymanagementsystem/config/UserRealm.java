@@ -1,7 +1,7 @@
 package com.library.librarymanagementsystem.config;
 
 import com.library.librarymanagementsystem.base.service.impl.UserServiceImpl;
-import com.library.librarymanagementsystem.entity.User;
+import com.library.librarymanagementsystem.domian.entity.User;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;

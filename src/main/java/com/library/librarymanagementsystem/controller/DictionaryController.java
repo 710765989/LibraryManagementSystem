@@ -1,6 +1,6 @@
 package com.library.librarymanagementsystem.controller;
 
-import com.library.librarymanagementsystem.entity.Dictionary;
+import com.library.librarymanagementsystem.domian.entity.Dictionary;
 import com.library.librarymanagementsystem.utils.LocalCache;
 import com.library.librarymanagementsystem.utils.R;
 import org.springframework.beans.factory.annotation.Autowired;

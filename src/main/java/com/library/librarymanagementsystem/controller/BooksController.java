@@ -1,8 +1,8 @@
 package com.library.librarymanagementsystem.controller;
 
-import com.library.librarymanagementsystem.VO.BookVO;
+import com.library.librarymanagementsystem.domian.vo.BookVO;
 import com.library.librarymanagementsystem.base.service.impl.BookServiceImpl;
-import com.library.librarymanagementsystem.entity.Book;
+import com.library.librarymanagementsystem.domian.entity.Book;
 import com.library.librarymanagementsystem.utils.Constant;
 import com.library.librarymanagementsystem.utils.DicConstant;
 import com.library.librarymanagementsystem.utils.LocalCache;

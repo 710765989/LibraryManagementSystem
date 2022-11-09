@@ -1,7 +1,6 @@
-package com.library.librarymanagementsystem.VO;
+package com.library.librarymanagementsystem.domian.vo;
 
-import com.library.librarymanagementsystem.entity.Book;
-import com.library.librarymanagementsystem.entity.Borrow;
+import com.library.librarymanagementsystem.domian.entity.Book;
 import lombok.Data;
 
 /**

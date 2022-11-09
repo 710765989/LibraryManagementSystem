@@ -3,7 +3,7 @@ package com.library.librarymanagementsystem.base.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.library.librarymanagementsystem.base.mapper.DelayMapper;
 import com.library.librarymanagementsystem.base.service.DelayService;
-import com.library.librarymanagementsystem.entity.Delay;
+import com.library.librarymanagementsystem.domian.entity.Delay;
 import org.springframework.stereotype.Service;
 
 @Service

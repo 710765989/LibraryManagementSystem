@@ -1,8 +1,8 @@
 package com.library.librarymanagementsystem.base.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.library.librarymanagementsystem.VO.BookVO;
-import com.library.librarymanagementsystem.entity.Book;
+import com.library.librarymanagementsystem.domian.vo.BookVO;
+import com.library.librarymanagementsystem.domian.entity.Book;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

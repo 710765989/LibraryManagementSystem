@@ -1,7 +1,7 @@
 package com.library.librarymanagementsystem.utils;
 
 import com.library.librarymanagementsystem.base.service.impl.DictionaryServiceImpl;
-import com.library.librarymanagementsystem.entity.Dictionary;
+import com.library.librarymanagementsystem.domian.entity.Dictionary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

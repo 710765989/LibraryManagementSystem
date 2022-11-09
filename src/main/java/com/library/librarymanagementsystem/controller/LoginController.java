@@ -1,7 +1,7 @@
 package com.library.librarymanagementsystem.controller;
 
 import com.library.librarymanagementsystem.base.service.impl.UserServiceImpl;
-import com.library.librarymanagementsystem.entity.User;
+import com.library.librarymanagementsystem.domian.entity.User;
 import com.library.librarymanagementsystem.utils.R;
 import com.library.librarymanagementsystem.utils.ShiroUtils;
 import org.apache.shiro.crypto.hash.Md5Hash;
@@ -32,7 +32,7 @@ public class LoginController {
         try {
             String md5 = getMD5(password);
             if (!md5.equals(userByUsername.getPassword())) {
-                //return R.error("密码错误！");
+                return R.error("密码错误！");
             }
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();

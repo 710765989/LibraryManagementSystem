@@ -1,4 +1,4 @@
-package com.library.librarymanagementsystem.entity;
+package com.library.librarymanagementsystem.domian.entity;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;

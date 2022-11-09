@@ -1,7 +1,7 @@
 package com.library.librarymanagementsystem.base.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.library.librarymanagementsystem.entity.Delay;
+import com.library.librarymanagementsystem.domian.entity.Delay;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 

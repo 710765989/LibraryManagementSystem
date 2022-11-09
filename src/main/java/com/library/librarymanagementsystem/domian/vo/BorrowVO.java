@@ -1,4 +1,4 @@
-package com.library.librarymanagementsystem.VO;
+package com.library.librarymanagementsystem.domian.vo;
 
 import lombok.Data;
 

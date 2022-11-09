@@ -1,12 +1,9 @@
-package com.library.librarymanagementsystem.entity;
+package com.library.librarymanagementsystem.domian.entity;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import javax.validation.constraints.NotNull;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
