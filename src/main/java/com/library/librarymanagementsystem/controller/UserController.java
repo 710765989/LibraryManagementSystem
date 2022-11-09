@@ -4,8 +4,11 @@ import com.library.librarymanagementsystem.base.service.impl.UserServiceImpl;
 import com.library.librarymanagementsystem.domian.dto.UserCreateDto;
 import com.library.librarymanagementsystem.domian.dto.UserUpdateDto;
 import com.library.librarymanagementsystem.domian.dto.UserUpdatePwdDto;
+import com.library.librarymanagementsystem.domian.entity.User;
+import com.library.librarymanagementsystem.utils.Constant;
 import com.library.librarymanagementsystem.utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -54,9 +57,12 @@ public class UserController {
         return R.ok();
     }
 
+    @Transactional
     @DeleteMapping("/{userId}")
     public R deleteUser(@PathVariable("userId") @NotNull(message = "用户ID不能为空") Integer userId){
-        userService.removeById(userId);
+        User user = userService.getById(userId);
+        user.setDelFlag(Constant.YES);
+        userService.updateById(user);
         return R.ok();
     }
 }

@@ -29,15 +29,15 @@ public class LoginController {
             return R.error("用户信息不存在！");
         }
         String password = user.getPassword();
-        try {
-            String md5 = getMD5(password);
+        //try {
+            //String md5 = getMD5(password);
             //if (!md5.equals(userByUsername.getPassword())) {
             if (!password.equals(userByUsername.getPassword())) {
                 return R.error("密码错误！");
             }
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
+        //} catch (NoSuchAlgorithmException e) {
+        //    e.printStackTrace();
+        //}
         System.out.println(ShiroUtils.getSubject().isAuthenticated());
         Serializable sessionId = ShiroUtils.login(userByUsername);
         System.out.println(ShiroUtils.getSubject().isAuthenticated());
