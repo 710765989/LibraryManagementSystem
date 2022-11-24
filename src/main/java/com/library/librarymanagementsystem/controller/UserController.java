@@ -3,7 +3,7 @@ package com.library.librarymanagementsystem.controller;
 import com.library.librarymanagementsystem.base.service.impl.UserServiceImpl;
 import com.library.librarymanagementsystem.domian.dto.UserCreateDto;
 import com.library.librarymanagementsystem.domian.dto.UserUpdateDto;
-import com.library.librarymanagementsystem.domian.dto.UserUpdatePwdDto;
+import com.library.librarymanagementsystem.domian.dto.UserUpdatePasswordDto;
 import com.library.librarymanagementsystem.domian.entity.User;
 import com.library.librarymanagementsystem.utils.Constant;
 import com.library.librarymanagementsystem.utils.R;
@@ -21,10 +21,10 @@ public class UserController {
     @Autowired
     private UserServiceImpl userService;
 
-    @PostMapping("/updatePwd")
-    public R updatePwd(@RequestBody UserUpdatePwdDto pwdDto){
+    @PostMapping("/update/password")
+    public R updatePassword(@RequestBody UserUpdatePasswordDto dto){
         try {
-            userService.updatePwd(pwdDto);
+            userService.updatePassword(dto);
         } catch (Exception e) {
             e.printStackTrace();
             return R.error(e.getMessage());

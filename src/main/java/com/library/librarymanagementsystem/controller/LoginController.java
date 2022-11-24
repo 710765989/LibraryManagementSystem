@@ -29,15 +29,14 @@ public class LoginController {
             return R.error("用户信息不存在！");
         }
         String password = user.getPassword();
-        //try {
-            //String md5 = getMD5(password);
-            //if (!md5.equals(userByUsername.getPassword())) {
-            if (!password.equals(userByUsername.getPassword())) {
+        try {
+            String md5 = getMD5(password);
+            if (!md5.equals(userByUsername.getPassword())) {
                 return R.error("密码错误！");
             }
-        //} catch (NoSuchAlgorithmException e) {
-        //    e.printStackTrace();
-        //}
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
         System.out.println(ShiroUtils.getSubject().isAuthenticated());
         Serializable sessionId = ShiroUtils.login(userByUsername);
         System.out.println(ShiroUtils.getSubject().isAuthenticated());
@@ -69,13 +68,6 @@ public class LoginController {
      * @return 加密后结果
      */
     public static String getMD5(String str) throws NoSuchAlgorithmException {
-        String salt = "salt";
-        //MessageDigest md = MessageDigest.getInstance("MD5");
-        //md.update((str+salt).getBytes());
-        //return new BigInteger(1, md.digest()).toString(16);
-
-        int count = 3;
-        Md5Hash md5Hash = new Md5Hash(str, salt, count);
-        return md5Hash.toHex();
+        return new Md5Hash(str, "salt", 3).toHex();
     }
 }

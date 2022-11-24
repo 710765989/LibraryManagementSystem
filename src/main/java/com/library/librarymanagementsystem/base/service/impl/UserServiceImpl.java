@@ -8,7 +8,7 @@ import com.library.librarymanagementsystem.base.service.UserService;
 import com.library.librarymanagementsystem.controller.LoginController;
 import com.library.librarymanagementsystem.domian.dto.UserCreateDto;
 import com.library.librarymanagementsystem.domian.dto.UserUpdateDto;
-import com.library.librarymanagementsystem.domian.dto.UserUpdatePwdDto;
+import com.library.librarymanagementsystem.domian.dto.UserUpdatePasswordDto;
 import com.library.librarymanagementsystem.domian.entity.User;
 import com.library.librarymanagementsystem.utils.ShiroUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,26 +32,26 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public void updatePwd(UserUpdatePwdDto pwdDto) {
+    public void updatePassword(UserUpdatePasswordDto dto) {
         User user = ShiroUtils.getCurrentUser();
         if (user == null){
             throw new RuntimeException("用户数据获取失败");
         }
         try {
-            if (!LoginController.getMD5(pwdDto.getOldPwd()).equals(user.getPassword())){
+            if (!LoginController.getMD5(dto.getOldPassword()).equals(user.getPassword())){
                 throw new RuntimeException("旧密码有误");
             }
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-        if (pwdDto.getOldPwd().equals(pwdDto.getNewPwd())){
+        if (dto.getOldPassword().equals(dto.getNewPassword())){
             throw new RuntimeException("新旧密码不能相同");
         }
-        if (!pwdDto.getRepeatPwd().equals(pwdDto.getNewPwd())){
+        if (!dto.getRepeatPassword().equals(dto.getNewPassword())){
             throw new RuntimeException("新密码与确认密码不一致");
         }
         try {
-            user.setPassword(LoginController.getMD5(pwdDto.getNewPwd()));
+            user.setPassword(LoginController.getMD5(dto.getNewPassword()));
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
