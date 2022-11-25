@@ -3,20 +3,14 @@ package com.library.librarymanagementsystem.controller;
 import com.library.librarymanagementsystem.domian.vo.BookVO;
 import com.library.librarymanagementsystem.base.service.impl.BookServiceImpl;
 import com.library.librarymanagementsystem.domian.entity.Book;
-import com.library.librarymanagementsystem.utils.Constant;
-import com.library.librarymanagementsystem.utils.DicConstant;
-import com.library.librarymanagementsystem.utils.LocalCache;
-import com.library.librarymanagementsystem.utils.R;
+import com.library.librarymanagementsystem.utils.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RequestMapping("management")
 @RestController
@@ -56,6 +50,9 @@ public class BooksController {
     @Transactional
     @PostMapping("save")
     public R edit(@RequestBody @Valid Book book) {
+        if (Objects.isNull(ShiroUtils.getCurrentManager())) {
+            return R.error("权限不足！");
+        }
         bookService.saveOrUpdate(book);
         return R.ok();
     }
@@ -68,6 +65,9 @@ public class BooksController {
     @Transactional
     @PostMapping("enable")
     public R enable(@RequestBody Book book) {
+        if (Objects.isNull(ShiroUtils.getCurrentManager())) {
+            return R.error("权限不足！");
+        }
         Book byId = bookService.getById(book.getId());
         String delFlag = Constant.YES.equals(book.getDelFlag()) ? Constant.NO : Constant.YES;
         byId.setDelFlag(delFlag);

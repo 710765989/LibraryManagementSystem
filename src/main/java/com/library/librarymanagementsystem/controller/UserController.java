@@ -7,12 +7,14 @@ import com.library.librarymanagementsystem.domian.dto.UserUpdatePasswordDto;
 import com.library.librarymanagementsystem.domian.entity.User;
 import com.library.librarymanagementsystem.utils.Constant;
 import com.library.librarymanagementsystem.utils.R;
+import com.library.librarymanagementsystem.utils.ShiroUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
+import java.util.Objects;
 
 @RequestMapping("/user")
 @RestController
@@ -39,6 +41,9 @@ public class UserController {
      */
     @GetMapping("/list")
     public R getUserList(){
+        if (Objects.isNull(ShiroUtils.getCurrentManager())) {
+            return R.error("权限不足！");
+        }
         return R.ok().put("data", userService.getUserList());
     }
 

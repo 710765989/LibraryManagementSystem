@@ -76,6 +76,14 @@ public class ShiroUtils {
         return isExists(CURRENT_USER) ? (User) Objects.requireNonNull(getSession()).getAttribute(CURRENT_USER) : null;
     }
 
+    public static User getCurrentManager() {
+        return isExists(CURRENT_MANAGER) ? (User) Objects.requireNonNull(getSession()).getAttribute(CURRENT_MANAGER) : null;
+    }
+
+    public static User getCurrentReader() {
+        return isExists(CURRENT_READER) ? (User) Objects.requireNonNull(getSession()).getAttribute(CURRENT_READER) : null;
+    }
+
     public static boolean isExists(String sessionKey) {
         return Objects.requireNonNull(getSession()).getAttribute(sessionKey) != null;
     }
@@ -85,6 +93,7 @@ public class ShiroUtils {
     }
 
     public static void logout() {
+        sessionId = null;
         SecurityUtils.getSubject().logout();
     }
 
