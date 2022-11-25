@@ -8,6 +8,7 @@ import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.session.Session;
+import org.apache.shiro.session.SessionException;
 import org.apache.shiro.session.mgt.DefaultSessionKey;
 import org.apache.shiro.subject.Subject;
 
@@ -57,8 +58,6 @@ public class ShiroUtils {
      */
     public static Session getSession () {
         if (StringUtils.isNotBlank(sessionId)) {
-            Session session = getSubject().getSession();
-            System.out.println(session);
             return SecurityUtils.getSecurityManager().getSession(new DefaultSessionKey(sessionId));
         }
         return null;
@@ -93,6 +92,12 @@ public class ShiroUtils {
     }
 
     public static void logout() {
+        Session session = getSession();
+        if (Objects.nonNull(session)) {
+            session.removeAttribute(CURRENT_USER);
+            session.removeAttribute(CURRENT_MANAGER);
+            session.removeAttribute(CURRENT_READER);
+        }
         sessionId = null;
         SecurityUtils.getSubject().logout();
     }
