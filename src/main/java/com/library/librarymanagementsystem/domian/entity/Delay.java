@@ -1,7 +1,6 @@
 package com.library.librarymanagementsystem.domian.entity;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -12,6 +11,9 @@ import javax.validation.constraints.NotNull;
 */
 @EqualsAndHashCode(callSuper = true)
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Delay extends BaseEntity {
     /**
     * 用户id

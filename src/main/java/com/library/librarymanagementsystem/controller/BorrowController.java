@@ -5,15 +5,11 @@ import com.library.librarymanagementsystem.domian.vo.BorrowVO;
 import com.library.librarymanagementsystem.base.service.impl.BookServiceImpl;
 import com.library.librarymanagementsystem.base.service.impl.BorrowServiceImpl;
 import com.library.librarymanagementsystem.base.service.impl.DelayServiceImpl;
-import com.library.librarymanagementsystem.base.service.impl.UserServiceImpl;
 import com.library.librarymanagementsystem.domian.entity.Book;
 import com.library.librarymanagementsystem.domian.entity.Borrow;
 import com.library.librarymanagementsystem.domian.entity.Delay;
 import com.library.librarymanagementsystem.domian.entity.User;
-import com.library.librarymanagementsystem.utils.Constant;
-import com.library.librarymanagementsystem.utils.DicConstant;
-import com.library.librarymanagementsystem.utils.LocalCache;
-import com.library.librarymanagementsystem.utils.R;
+import com.library.librarymanagementsystem.utils.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +19,7 @@ import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @RequestMapping("borrow")
 @RestController
@@ -30,14 +27,16 @@ import java.util.List;
 public class BorrowController {
     private final BorrowServiceImpl borrowService;
     private final BookServiceImpl bookService;
-    private final UserServiceImpl userService;
     private final DelayServiceImpl delayService;
     private final LocalCache localCache;
 
     @GetMapping("list")
     public R list() {
-        User admin = userService.getByUsername("admin");
-        List<Borrow> list = borrowService.lambdaQuery().eq(Borrow::getUserId, admin.getId()).list();
+        User currentUser = ShiroUtils.getCurrentUser();
+        if (Objects.isNull(currentUser)) {
+            return R.error("请先登录！");
+        }
+        List<Borrow> list = borrowService.lambdaQuery().eq(Borrow::getUserId, currentUser.getId()).list();
         List<BorrowVO> res = new ArrayList<>();
         for (Borrow borrow : list) {
             BorrowVO vo = new BorrowVO();
@@ -75,9 +74,12 @@ public class BorrowController {
         if (LocalDateTime.now().plusMonths(3).isBefore(borrow.getReturnTime())) {
             return R.error("借阅时长能超过3个月");
         }
-        User admin = userService.getByUsername("admin");
+        User currentUser = ShiroUtils.getCurrentUser();
+        if (Objects.isNull(currentUser)) {
+            return R.error("请先登录！");
+        }
         borrow.setId(null);
-        borrow.setUserId(admin.getId());
+        borrow.setUserId(currentUser.getId());
         borrow.setStatus(Constant.BORROW_STATUS_1);
         borrowService.save(borrow);
 

@@ -37,19 +37,8 @@ public class LoginController {
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-        System.out.println(ShiroUtils.getSubject().isAuthenticated());
-        Serializable sessionId = ShiroUtils.login(userByUsername);
-        System.out.println(ShiroUtils.getSubject().isAuthenticated());
-
-        Cookie cookie = new Cookie("token", sessionId.toString());
-        cookie.setPath("/");
-        cookie.setMaxAge(-1);
-        response.addCookie(cookie);
-        response.addHeader("token", sessionId.toString());
-        //ShiroUtils.getSession().setAttribute("token", USER_TYPE_MANAGER.equals(userByUsername.getType()) ? ADMIN_TOKEN : USER_TOKEN);
-        return R.ok("登录成功")
-                .put("token", sessionId);
-                //.put("token", USER_TYPE_MANAGER.equals(userByUsername.getType()) ? ADMIN_TOKEN : USER_TOKEN);
+        ShiroUtils.login(userByUsername);
+        return R.ok("登录成功");
     }
 
     /**
