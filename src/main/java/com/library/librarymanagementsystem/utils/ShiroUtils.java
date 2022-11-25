@@ -6,11 +6,13 @@ import com.library.librarymanagementsystem.enums.UserTypeEnum;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.mgt.DefaultSessionKey;
 import org.apache.shiro.subject.Subject;
 
 import java.io.Serializable;
+import java.security.NoSuchAlgorithmException;
 import java.util.Objects;
 
 /**
@@ -29,7 +31,7 @@ public class ShiroUtils {
     /**
      * 用户登录
      */
-    public static Serializable login (User user) throws AuthenticationException {
+    public static void login (User user) throws AuthenticationException {
         UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(user.getUsername(), user.getPassword());
         Subject subject = getSubject();
         subject.login(usernamePasswordToken);
@@ -43,7 +45,6 @@ public class ShiroUtils {
         // sessionId
         Serializable id = subject.getSession().getId();
         sessionId = id.toString();
-        return id;
     }
 
     // 由于@CrossOrigin原因 暂无法使用
@@ -85,5 +86,16 @@ public class ShiroUtils {
 
     public static void logout() {
         SecurityUtils.getSubject().logout();
+    }
+
+
+    /**
+     * md5加密
+     *
+     * @param str 待加密字符串
+     * @return 加密后结果
+     */
+    public static String getMD5(String str) throws NoSuchAlgorithmException {
+        return new Md5Hash(str, "salt", 3).toHex();
     }
 }

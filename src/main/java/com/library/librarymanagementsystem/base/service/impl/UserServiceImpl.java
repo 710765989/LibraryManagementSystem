@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.library.librarymanagementsystem.base.mapper.UserMapper;
 import com.library.librarymanagementsystem.base.service.UserService;
-import com.library.librarymanagementsystem.controller.LoginController;
 import com.library.librarymanagementsystem.domian.dto.UserCreateDto;
 import com.library.librarymanagementsystem.domian.dto.UserUpdateDto;
 import com.library.librarymanagementsystem.domian.dto.UserUpdatePasswordDto;
@@ -37,7 +36,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             throw new RuntimeException("用户数据获取失败");
         }
         try {
-            if (!LoginController.getMD5(dto.getOldPassword()).equals(user.getPassword())){
+            if (!ShiroUtils.getMD5(dto.getOldPassword()).equals(user.getPassword())){
                 throw new RuntimeException("旧密码错误");
             }
         } catch (NoSuchAlgorithmException e) {
@@ -50,7 +49,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             throw new RuntimeException("新密码与确认密码不一致");
         }
         try {
-            user.setPassword(LoginController.getMD5(dto.getNewPassword()));
+            user.setPassword(ShiroUtils.getMD5(dto.getNewPassword()));
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
@@ -73,7 +72,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         User user = new User();
         user.setUsername(createDto.getUsername());
         try {
-            user.setPassword(LoginController.getMD5(createDto.getPassword()));
+            user.setPassword(ShiroUtils.getMD5(createDto.getPassword()));
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
