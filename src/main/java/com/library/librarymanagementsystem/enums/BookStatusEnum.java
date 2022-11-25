@@ -5,14 +5,14 @@ import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 /**
  * 借阅状态
  */
-public enum BookStatus {
+public enum BookStatusEnum {
     IN_STOCK("0", "在库"),
     BORROWED("1", "借出");
 
     final String value;
     final String status;
 
-    BookStatus(String value, String status) {
+    BookStatusEnum(String value, String status) {
         this.value = value;
         this.status = status;
     }
@@ -25,9 +25,9 @@ public enum BookStatus {
         return status;
     }
 
-    public static BookStatus getBookStatus(String value) {
+    public static BookStatusEnum getBookStatus(String value) {
         if (StringUtils.isNotBlank(value)) {
-            for(BookStatus item: BookStatus.values()){
+            for(BookStatusEnum item: BookStatusEnum.values()){
                 if(value.equals(item.value)){
                     return item;
                 }
@@ -38,7 +38,7 @@ public enum BookStatus {
 
     public static String getStatus(String value) {
         if (StringUtils.isNotBlank(value)) {
-            for(BookStatus item: BookStatus.values()){
+            for(BookStatusEnum item: BookStatusEnum.values()){
                 if(value.equals(item.value)){
                     return item.status;
                 }

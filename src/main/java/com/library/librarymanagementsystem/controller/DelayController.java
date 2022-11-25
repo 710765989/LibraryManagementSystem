@@ -13,8 +13,8 @@ import com.library.librarymanagementsystem.domian.entity.Delay;
 import com.library.librarymanagementsystem.domian.entity.User;
 import com.library.librarymanagementsystem.utils.Constant;
 import com.library.librarymanagementsystem.utils.R;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,15 +24,12 @@ import java.util.List;
 
 @RequestMapping("delay")
 @RestController
+@RequiredArgsConstructor
 public class DelayController {
-    @Autowired
-    private DelayServiceImpl delayService;
-    @Autowired
-    private BookServiceImpl bookService;
-    @Autowired
-    private BorrowServiceImpl borrowService;
-    @Autowired
-    private UserServiceImpl userService;
+    private final DelayServiceImpl delayService;
+    private final BookServiceImpl bookService;
+    private final BorrowServiceImpl borrowService;
+    private final UserServiceImpl userService;
 
     /**
      * 延期记录

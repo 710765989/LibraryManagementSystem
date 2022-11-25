@@ -7,8 +7,8 @@ import com.library.librarymanagementsystem.utils.Constant;
 import com.library.librarymanagementsystem.utils.DicConstant;
 import com.library.librarymanagementsystem.utils.LocalCache;
 import com.library.librarymanagementsystem.utils.R;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,11 +20,10 @@ import java.util.Map;
 
 @RequestMapping("management")
 @RestController
+@RequiredArgsConstructor
 public class BooksController {
-    @Autowired
-    private BookServiceImpl bookService;
-    @Autowired
-    private LocalCache localCache;
+    private final BookServiceImpl bookService;
+    private final LocalCache localCache;
 
     /**
      * 书籍列表
@@ -32,17 +31,7 @@ public class BooksController {
      */
     @GetMapping("list")
     public R info (BookVO vo) {
-        //User currentUser = ShiroUtils.getCurrentUser();
-        //if (currentUser == null) {
-        //    currentUser = userService.getByUsername("admin");
-        //}
-
         List<Book> list = bookService.getList(vo);
-        //if (vo == null) {
-        //    list = bookService.list();
-        //} else {
-        //    list = bookService.lambdaQuery().like(Book::getName, vo.getName()).list();
-        //}
         //PageHelper.startPage(1, 5);
         List<BookVO> vos = new ArrayList<>();
         list.forEach(l -> {

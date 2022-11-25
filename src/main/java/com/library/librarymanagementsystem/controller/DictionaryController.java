@@ -3,7 +3,7 @@ package com.library.librarymanagementsystem.controller;
 import com.library.librarymanagementsystem.domian.entity.Dictionary;
 import com.library.librarymanagementsystem.utils.LocalCache;
 import com.library.librarymanagementsystem.utils.R;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,9 +12,9 @@ import java.util.List;
 
 @RequestMapping("dictionary")
 @RestController
+@RequiredArgsConstructor
 public class DictionaryController {
-    @Autowired
-    private LocalCache localCache;
+    private final LocalCache localCache;
 
     /**
      * 获取字典

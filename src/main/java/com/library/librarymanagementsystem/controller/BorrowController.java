@@ -14,8 +14,8 @@ import com.library.librarymanagementsystem.utils.Constant;
 import com.library.librarymanagementsystem.utils.DicConstant;
 import com.library.librarymanagementsystem.utils.LocalCache;
 import com.library.librarymanagementsystem.utils.R;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,17 +26,13 @@ import java.util.List;
 
 @RequestMapping("borrow")
 @RestController
+@RequiredArgsConstructor
 public class BorrowController {
-    @Autowired
-    private BorrowServiceImpl borrowService;
-    @Autowired
-    private BookServiceImpl bookService;
-    @Autowired
-    private UserServiceImpl userService;
-    @Autowired
-    private DelayServiceImpl delayService;
-    @Autowired
-    private LocalCache localCache;
+    private final BorrowServiceImpl borrowService;
+    private final BookServiceImpl bookService;
+    private final UserServiceImpl userService;
+    private final DelayServiceImpl delayService;
+    private final LocalCache localCache;
 
     @GetMapping("list")
     public R list() {

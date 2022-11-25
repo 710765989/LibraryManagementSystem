@@ -2,21 +2,25 @@ package com.library.librarymanagementsystem.utils;
 
 import com.library.librarymanagementsystem.base.service.impl.DictionaryServiceImpl;
 import com.library.librarymanagementsystem.domian.entity.Dictionary;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * 词典存入本地缓存
  */
 @Component
+@RequiredArgsConstructor
 public class LocalCache {
-    @Autowired
-    private DictionaryServiceImpl dictionaryService;
-    // 字典缓存对象
+    private final DictionaryServiceImpl dictionaryService;
+    /**
+     * 字典缓存对象
+     */
     private static volatile Map<String, Dictionary> cache;
 
     /**
@@ -28,11 +32,7 @@ public class LocalCache {
                 if (cache == null) {
                     // 查询词典表
                     List<Dictionary> allDic = dictionaryService.lambdaQuery().eq(Dictionary::getUseFlag, Constant.YES).list();
-                    Map<String, Dictionary> cacheMap = new ConcurrentHashMap<>();
-                    for (Dictionary dictionary : allDic) {
-                        cacheMap.put(getMapKey(dictionary.getDicKey(), dictionary.getValue()), dictionary);
-                    }
-                    cache = cacheMap;
+                    cache = allDic.stream().collect(Collectors.toConcurrentMap(Dictionary::getMapKey, Function.identity()));
                 }
             }
         }
@@ -66,6 +66,12 @@ public class LocalCache {
 
     private static volatile Map<String, List<Dictionary>> dicCache;
 
+    /**
+     * 根据key获取字典列表
+     *
+     * @param key 字典key
+     * @return 字典列表
+     */
     public List<Dictionary> getDicList(String key) {
         if (dicCache == null) {
             synchronized (Dictionary.class) {

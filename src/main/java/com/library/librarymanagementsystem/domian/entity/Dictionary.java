@@ -43,4 +43,11 @@ public class Dictionary extends BaseEntity {
     @Size(max= 1,message="使用状态长度不能超过1")
     @Length(max= 1,message="使用状态长度不能超过1")
     private String useFlag;
+
+    /**
+     * 组合缓存用key
+     */
+    public String getMapKey() {
+        return this.dicKey + ":" + this.value;
+    }
 }

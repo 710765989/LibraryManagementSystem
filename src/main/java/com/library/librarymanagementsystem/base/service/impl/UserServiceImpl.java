@@ -11,7 +11,7 @@ import com.library.librarymanagementsystem.domian.dto.UserUpdateDto;
 import com.library.librarymanagementsystem.domian.dto.UserUpdatePasswordDto;
 import com.library.librarymanagementsystem.domian.entity.User;
 import com.library.librarymanagementsystem.utils.ShiroUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,10 +20,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
-
-    @Autowired
-    private UserMapper userMapper;
+    private final UserMapper userMapper;
 
     @Override
     public User getByUsername(String username) {
@@ -39,7 +38,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         }
         try {
             if (!LoginController.getMD5(dto.getOldPassword()).equals(user.getPassword())){
-                throw new RuntimeException("旧密码有误");
+                throw new RuntimeException("旧密码错误");
             }
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
