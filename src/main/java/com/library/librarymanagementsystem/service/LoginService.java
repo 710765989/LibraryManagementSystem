@@ -9,5 +9,5 @@ public interface LoginService {
      * 用户登录
      * @param user 登录信息
      */
-    void login(User user) throws NoSuchAlgorithmException;
+    String login(User user) throws NoSuchAlgorithmException;
 }

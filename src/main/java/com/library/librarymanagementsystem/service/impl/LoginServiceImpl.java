@@ -3,13 +3,12 @@ package com.library.librarymanagementsystem.service.impl;
 import com.library.librarymanagementsystem.base.service.impl.UserServiceImpl;
 import com.library.librarymanagementsystem.domian.entity.User;
 import com.library.librarymanagementsystem.service.LoginService;
-import com.library.librarymanagementsystem.utils.R;
 import com.library.librarymanagementsystem.utils.ShiroUtils;
 import lombok.RequiredArgsConstructor;
-import org.apache.shiro.authc.AuthenticationException;
 import org.springframework.stereotype.Service;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -21,7 +20,7 @@ public class LoginServiceImpl implements LoginService  {
      * @param user 登录信息
      */
     @Override
-    public void login(User user) throws NoSuchAlgorithmException {
+    public String login(User user) throws NoSuchAlgorithmException {
         // 用户存在判断
         User userByUsername = userService.getByUsername(user.getUsername());
         if (userByUsername == null) {
@@ -36,5 +35,6 @@ public class LoginServiceImpl implements LoginService  {
         }
         // 用户登录
         ShiroUtils.login(userByUsername);
+        return Objects.nonNull(ShiroUtils.getCurrentManager()) ? ShiroUtils.CURRENT_MANAGER : ShiroUtils.CURRENT_READER;
     }
 }

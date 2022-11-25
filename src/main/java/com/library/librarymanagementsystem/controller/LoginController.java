@@ -22,11 +22,11 @@ public class LoginController {
     @PostMapping("/login")
     public R login(@RequestBody User user) {
         try {
-            loginService.login(user);
+            String userType = loginService.login(user);
+            return R.ok("登录成功").put("userType", userType);
         } catch (NoSuchAlgorithmException | RuntimeException e) {
             return R.error(e.getMessage());
         }
-        return R.ok("登录成功");
     }
 
     /**
