@@ -8,12 +8,10 @@ import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.session.Session;
-import org.apache.shiro.session.SessionException;
 import org.apache.shiro.session.mgt.DefaultSessionKey;
 import org.apache.shiro.subject.Subject;
 
 import java.io.Serializable;
-import java.security.NoSuchAlgorithmException;
 import java.util.Objects;
 
 /**
@@ -109,7 +107,12 @@ public class ShiroUtils {
      * @param str 待加密字符串
      * @return 加密后结果
      */
-    public static String getMD5(String str) throws NoSuchAlgorithmException {
-        return new Md5Hash(str, "salt", 3).toHex();
+    public static String getMD5(String str) {
+        try {
+            return new Md5Hash(str, "salt", 3).toHex();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(String.format("字符串[%s]加密失败", str));
+        }
     }
 }

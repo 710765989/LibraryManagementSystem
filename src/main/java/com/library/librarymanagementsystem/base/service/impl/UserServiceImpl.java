@@ -14,7 +14,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -35,26 +34,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         if (user == null){
             throw new RuntimeException("用户数据获取失败");
         }
-        try {
-            if (!ShiroUtils.getMD5(dto.getOldPassword()).equals(user.getPassword())){
-                throw new RuntimeException("旧密码错误");
-            }
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-        if (dto.getOldPassword().equals(dto.getNewPassword())){
-            throw new RuntimeException("新旧密码不能相同");
-        }
-        if (!dto.getRepeatPassword().equals(dto.getNewPassword())){
-            throw new RuntimeException("新密码与确认密码不一致");
-        }
-        try {
-            user.setPassword(ShiroUtils.getMD5(dto.getNewPassword()));
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
+        // 校验
+        dto.validate(user);
+        // 密码加密
+        user.setPassword(ShiroUtils.getMD5(dto.getNewPassword()));
         userMapper.updateById(user);
     }
+
 
     @Override
     public List<User> getUserList() {
@@ -71,11 +57,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         }
         User user = new User();
         user.setUsername(createDto.getUsername());
-        try {
-            user.setPassword(ShiroUtils.getMD5(createDto.getPassword()));
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
+        user.setPassword(ShiroUtils.getMD5(createDto.getPassword()));
         user.setType(createDto.getType());
         user.setCreateTime(LocalDateTime.now());
         userMapper.insert(user);
